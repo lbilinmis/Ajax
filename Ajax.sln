@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ajax.WebUI", "Ajax.WebUI\Ajax.WebUI.csproj", "{DBFBBA80-43C3-48E6-83CA-70B18954948E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBFBBA80-43C3-48E6-83CA-70B18954948E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBFBBA80-43C3-48E6-83CA-70B18954948E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBFBBA80-43C3-48E6-83CA-70B18954948E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBFBBA80-43C3-48E6-83CA-70B18954948E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB2A046E-7BC4-4DC8-8BC0-E3D212750165}
+	EndGlobalSection
+EndGlobal

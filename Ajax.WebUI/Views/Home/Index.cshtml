@@ -1,0 +1,141 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <input type="text" id="kullaniciId" class=" form-control" />
+        <button type="button" id="GetUser">Getir</button>
+
+        <div class="p-2" id="user">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <button type="button" id="GetUserList">Listele</button>
+
+        <div id="loader" style="display:none!important" class="spinner-border text-success" role="status">
+            <span class="sr-only">Yükleniyor...</span>
+        </div>
+
+        <div class="p-2" id="userList">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <input type="text" id="eklenecekId" class=" form-control" />
+        <input type="text" id="eklenecekAd" class=" form-control" />
+        <button type="button" class="btn btn-success" id="InsertUser">Kullanici Ekle</button>
+
+        <div class="p-2" id="user">
+        </div>
+    </div>
+
+</div>
+
+@section Scriptler{
+    <script>
+        $(document).ready(function () {
+            $("#GetUser").click(i => {
+                let kullaniciId = $("#kullaniciId").val();
+
+                $.ajax({
+                    url: "/Home/GetById",
+                    type: "GET",
+                    dataType: "json",
+                    data: { id: kullaniciId },
+                    success: function (data) {
+                        var nesne = jQuery.parseJSON(data);
+                        let htmlContent = `
+                                                                                <table class="table">
+                                                                                <thead>
+                                                                                  <tr>
+                                                                                    <th scope="col">Id</th>
+                                                                                    <th scope="col">Name</th>
+                                                                                  </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                <tr>
+                                                                                <th scope="row">${nesne.Id}</th>
+                                                                                                    <td>${nesne.Name}</td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                                </table>`;
+
+                        $("#user").html(htmlContent);
+                        console.log(nesne);
+                    }
+                })
+            })
+
+            $("#GetUserList").click(i => {
+                $.ajax({
+                    url: "/Home/GetList",
+                    type: "GET",
+                    dataType: "json",
+                    contentType: "application/json;charset=Utf-8;",
+                    beforeSend: function () {
+                        $("#loader").show();
+                    },
+                    success: function (data) {
+                        var kullanicilar = jQuery.parseJSON(data);
+
+                        $("#loader").hide();
+                        let htmlContent = `
+                                                           <table class="table">
+                                                           <thead>
+                                                           <tr>
+                                                           <th scope="col">Id</th>
+                                                           <th scope="col">Name</th>
+                                                           </tr>
+                                                           </thead>
+                                                           <tbody>
+                                                           `;
+                        $.each(kullanicilar, (index, value) => {
+                            htmlContent += `  <tr>
+                                                           <th scope="row">${value.Id}</th>
+                                                           <td>${value.Name}</td>
+                                                           </tr>`
+                        });
+
+                        htmlContent += `  </tbody>
+                                                          </table>
+                                                          `;
+
+                        $("#userList").html(htmlContent);
+                    }
+
+                });
+            })
+
+
+            $("#InsertUser").click(i => {
+               
+                let kullanici = {
+                    Id: $("#eklenecekId").val(),
+                    Name: $("#eklenecekAd").val()
+                };
+
+                $.ajax({
+                    url: "/Home/KullaniciEkle",
+                    type: "Post",
+                    dataType: "json",
+                    data: kullanici,
+                    success: function (result) {
+                        var kullanici= jQuery.parseJSON(result);
+                        console.log(kullanici.Name)
+                    }
+                })
+            })
+
+        })
+    </script>
+
+}
